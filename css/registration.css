@@ -1,0 +1,18 @@
+.register-form {
+    border: 1px #c9c9c9 solid;
+    padding: 20px;
+    margin: 20px;
+    background-color: #fcfcfc;
+}
+
+.register-legend {
+    margin: -20px -20px 20px -20px;
+    background: #bdbdbd;
+    padding: 15px;
+    color: #fff;
+    font-size: 22px;
+}
+
+.register-form input {
+    width: 350px;
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Login</title>
+    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet" href="css/login.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="menu-container">
+            <div class="menu">
+                <div class="logo">
+                    <span class="material-icons drop-logo">menu</span> Logo
+                </div>
+                <div class="search">
+                    <input type="text" placeholder="Search by item name">
+                    <div class="search-dropdown">All categories
+                        <span class="material-icons expand-search">expand_more</span>
+                    </div>
+                </div>
+                <div class="links">
+                    <div class="nav-btn">
+                        <span class="material-icons">favorite</span>
+                    </div>
+                    <div class="nav-btn">
+                        <span class="material-icons">shopping_cart</span>
+                    </div>
+                    <div class="login"><a href="/login">Login</a></div>
+                    <div class="separator">|</div>
+                    <div class="signup"><a href="/signup">Sign Up</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="content-container">
+            <div class="login-form">
+                <div class="circle">Login</div>
+                <form action="/login" method="POST">
+                    <div class="form-input">
+                        <input type="text" placeholder="Login" name="login">
+                    </div>
+                    <div class="form-input">
+                        <input type="password" placeholder="Password" name="password">
+                    </div>
+                    <button class="button" type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-container">
+        </div>
+    </div>
+</body>
+</html>

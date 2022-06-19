@@ -1,0 +1,27 @@
+.login-form {
+    border: 1px #c9c9c9 solid;
+    padding: 20px;
+    margin: 20px;
+    background-color: #fcfcfc;
+    margin-top: 100px;
+    width: 400px
+}
+
+.login-form .circle {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    margin-top: -90px;
+    margin-left: 110px;
+    border-radius: 50%;
+    background: #c4c4c4;
+    text-align: center;
+    line-height: 140px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.login-form form {
+    margin-top: 80px;
+}

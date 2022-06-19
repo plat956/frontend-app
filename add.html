@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Add New Coupon</title>
+    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet" href="css/new_coupon.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+</head>
+<body class="bg-white">
+<div class="wrapper">
+    <div class="menu-container">
+        <div class="menu">
+            <div class="logo">
+                <span class="material-icons drop-logo">menu</span> Logo
+            </div>
+            <div class="search">
+                <input type="text" placeholder="Search by item name">
+                <div class="search-dropdown">All categories
+                    <span class="material-icons expand-search">expand_more</span>
+                </div>
+            </div>
+            <div class="links">
+                <div class="nav-btn">
+                    <span class="material-icons">favorite</span>
+                </div>
+                <div class="nav-btn">
+                    <span class="material-icons">shopping_cart</span>
+                </div>
+                <div class="login"><a href="/login">Login</a></div>
+                <div class="separator">|</div>
+                <div class="signup"><a href="/signup">Sign Up</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="page-legend">
+        <span>Add New Coupon</span>
+    </div>
+    <div class="content-container">
+        <div class="page-container">
+
+            <form action="/register" method="POST" enctype="multipart/form-data">
+                <div class="flex-form">
+                    <div class="mr-20">
+                        <label for="company">Company</label>
+                        <div class="form-input left">
+                            <input type="text" name="company" id="company"/>
+                        </div>
+                        <label for="category">Category</label>
+                        <div class="form-input left">
+                            <select id="category" name="category">
+                                <option value="1">Category Name 1</option>
+                                <option value="2">Category Name 2</option>
+                            </select>
+                        </div>
+                        <label for="valid_to">Valid to</label>
+                        <div class="form-input left">
+                            <input type="datetime-local" name="valid_to" id="valid_to"/>
+                        </div>
+                        <label for="price">Price</label>
+                        <div class="form-input left">
+                            <input type="number" name="price" id="price" step=".01" />
+                        </div>
+                        <label for="images">Images</label>
+                        <div class="form-input left">
+                            <div class="image-selector" onclick="document.getElementById('images').click()">
+                                <span class="material-icons">photo_library</span>
+                            </div>
+                            <input type="file" name="images" id="images" multiple accept="image/*" style="display: none" />
+                        </div>
+                    </div>
+                    <div>
+                        <label for="name">Item Name</label>
+                        <div class="form-input left">
+                            <input type="text" name="name" id="name"/>
+                        </div>
+                        <label for="short_descr">Short Description</label>
+                        <div class="form-input left">
+                            <textarea name="short_descr" id="short_descr"></textarea>
+                        </div>
+                        <label for="long_descr">Long Description</label>
+                        <div class="form-input left">
+                            <textarea name="long_descr" id="long_descr"></textarea>
+                        </div>
+                        <div class="buttons-area">
+                            <button class="button white mr-20">Back</button>
+                            <button class="button" type="submit">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="footer-container">
+    </div>
+</div>
+</body>
+</html>

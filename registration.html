@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Registration</title>
+    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet" href="css/registration.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+</head>
+<body>
+<div class="wrapper">
+    <div class="menu-container">
+        <div class="menu">
+            <div class="logo">
+                <span class="material-icons drop-logo">menu</span> Logo
+            </div>
+            <div class="search">
+                <input type="text" placeholder="Search by item name">
+                <div class="search-dropdown">All categories
+                    <span class="material-icons expand-search">expand_more</span>
+                </div>
+            </div>
+            <div class="links">
+                <div class="nav-btn">
+                    <span class="material-icons">favorite</span>
+                </div>
+                <div class="nav-btn">
+                    <span class="material-icons">shopping_cart</span>
+                </div>
+                <div class="login"><a href="/login">Login</a></div>
+                <div class="separator">|</div>
+                <div class="signup"><a href="/signup">Sign Up</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="content-container">
+        <div class="register-form">
+            <div class="register-legend">Register</div>
+            <form action="/register" method="POST">
+                <div class="flex-form">
+                    <div class="mr-20">
+                        <label for="login">Login Name</label>
+                        <div class="form-input left">
+                            <input type="text" name="login" id="login"/>
+                        </div>
+                        <label for="password">Password</label>
+                        <div class="form-input left">
+                            <input type="password" name="password" id="password"/>
+                        </div>
+                        <label for="email">Email</label>
+                        <div class="form-input left">
+                            <input type="email" name="email" id="email"/>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="name">First Name</label>
+                        <div class="form-input left">
+                            <input type="text" name="name" id="name"/>
+                        </div>
+                        <label for="password_confirm">Repeat Password</label>
+                        <div class="form-input left">
+                            <input type="password" name="password_confirm" id="password_confirm"/>
+                        </div>
+                        <label for="address">Address</label>
+                        <div class="form-input left">
+                            <input type="text" name="address" id="address"/>
+                        </div>
+                        <div class="buttons-area">
+                            <button class="button white mr-20">Cancel</button>
+                            <button class="button" type="submit">Sign up</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="footer-container">
+    </div>
+</div>
+</body>
+</html>
