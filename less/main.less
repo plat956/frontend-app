@@ -1,15 +1,15 @@
+@import "declarations.less";
+
 .categories {
-    background-color: #e0e0e0;
+    .flex-center-element;
+    background-color: @empty-thumb-color;
     font-size: 25px;
-    color: #fff;
+    color: @white-color;
     padding: 0px 15px 15px 15px;
-    display: flex;
-    justify-content: center;
 }
 
 .categories-wrap {
-    display: flex;
-    justify-content: center;
+    .flex-center-element;
     width: 70%;
     flex-wrap: wrap;
 }
@@ -18,19 +18,19 @@
     margin-left: 40px;
     margin-top: 15px;
     cursor: pointer;
-}
 
-.category .picture {
-    width: 80px;
-    height: 80px;
-    background-color: #fff;
-}
+    .picture {
+        width: 80px;
+        height: 80px;
+        background-color: @white-color;
+    }
 
-.category .name {
-    font-size: 18px;
-    color: #000;
-    font-weight: 500;
-    text-align: center;
+    .name {
+        font-size: 18px;
+        color: @black-color;
+        font-weight: 500;
+        text-align: center;
+    }
 }
 
 .item {
@@ -42,11 +42,11 @@
 .item .picture {
     width: 240px;
     height: 210px;
-    background-color: #e0e0e0;
+    background-color: @empty-thumb-color;
 }
 
 .item .footer {
-    background: #fff;
+    background: @white-color;
     padding: 8px;
 }
 
@@ -61,8 +61,7 @@
 }
 
 .item .price {
-    display: flex;
-    justify-content: space-between;
+    .flex-sb-element;
     margin-left: -8px;
     margin-right: -8px;
     margin-top: 8px;
@@ -71,9 +70,8 @@
 }
 
 .item-container {
-    display: flex;
+    .flex-center-element;
     width: 70%;
-    justify-content: center;
     align-self: flex-start;
     padding: 20px 0px 20px 0px;
     flex-wrap: wrap;
@@ -85,23 +83,21 @@
 }
 
 .descr {
-    display: flex;
-    justify-content: space-between;
+    .flex-sb-element;
 }
 
 .extra-info {
-    display: flex;
+    .flex-sb-element;
     flex-direction: column;
     align-items: self-end;
-    justify-content: space-between;
 }
 
 .sm {
     font-size: 10px;
-    color: #606060;
+    color: @gray-color;
 }
 
 .fav {
     font-size: 18px !important;
-    color: #606060;
+    color: @gray-color;
 }

@@ -1,3 +1,5 @@
+@import "declarations.less";
+
 * {
     margin: 0;
     padding: 0;
@@ -12,8 +14,7 @@ html, body {
 }
 
 body {
-    display: flex;
-    flex-direction: column;
+    .flex-column-element;
     background-color: #f2f2f2;
     font-family: Segoe UI, Frutiger, Frutiger Linotype, Dejavu Sans, Helvetica Neue, Arial, sans-serif;
     font-size: 14px;
@@ -24,37 +25,34 @@ input:focus, textarea:focus, select:focus {
 }
 
 .menu-container {
-    display: flex;
+    .flex-center-element;
     color: #606060;
-    background-color: #fff;
+    background-color: @white-color;
     padding: 10px 0;
-    justify-content: center;
     font-weight: 500;
 }
 
 .menu {
-    border: 1px solid #fff;
+    border: 1px solid @white-color;
     width: 1100px;
-    display: flex;
-    justify-content: space-between;
+    .flex-sb-element;
     align-items: center;
     margin: 0px 20px 0px 20px;
 }
 
 .links {
-    border: 1px solid #fff;
-    display: flex;
-    justify-content: flex-end;
+    border: 1px solid @white-color;
+    .flex-end-element;
 }
 
 .separator {
-    margin-left: 5px;
-    margin-right: 5px;
+    @size: 5px;
+    margin-left: @size;
+    margin-right: @size;
 }
 
 .search {
-    display: flex;
-    justify-content: center;
+    .flex-center-element;
     flex: 1;
 }
 
@@ -75,7 +73,7 @@ input:focus, textarea:focus, select:focus {
 .material-icons.drop-logo {
     vertical-align: top;
     font-size: 30px !important;
-    color: #000;
+    color: @black-color;
 }
 
 .material-icons.expand-search {
@@ -89,26 +87,23 @@ input:focus, textarea:focus, select:focus {
 }
 
 .content-container {
-    display: flex;
-    justify-content: center;
+    .flex-center-element;
     align-items: center;
     flex: 1;
 }
 
 .footer-container {
-    background-color: #fff;
+    background-color: @white-color;
     padding: 30px;
 }
 
 .wrapper {
-    display: flex;
-    flex-direction: column;
+    .flex-column-element;
     height: 100%;
 }
 
 .flex-form {
-    display: flex;
-    justify-content: space-between;
+    .flex-sb-element;
 }
 
 .mr-20 {
@@ -132,7 +127,7 @@ input:focus, textarea:focus, select:focus {
 .button {
     cursor: pointer;
     background-color: #6fcf97;
-    color: #fff;
+    color: @white-color;
     width: 100%;
     padding: 10px;
     font-size: 18px;
@@ -148,8 +143,10 @@ input:focus, textarea:focus, select:focus {
     vertical-align: top;
 }
 
-.form-input.left input, .form-input.left textarea, .form-input.left select {
-    text-align: left;
+.form-input.left {
+    input, textarea, select {
+        text-align: left;
+    }
 }
 
 .flex-form label {
@@ -160,23 +157,22 @@ input:focus, textarea:focus, select:focus {
 }
 
 .button.white {
-    background: #fff;
+    background: @white-color;
     border: 1px #828282 solid;
     color: #828282;
 }
 
 .button.small {
-    background: #fff;
+    background: @white-color;
     border: 1px #828282 solid;
-    color: #000000;
+    color: @black-color;
     font-size: 12px;
     padding: 3px 15px 3px 15px;
 }
 
 .page-container {
-    display: flex;
+    .flex-column-element;
     width: 50%;
-    flex-direction: column;
     align-self: flex-start;
     padding: 20px 0px 20px 0px;
 }
@@ -188,7 +184,7 @@ input:focus, textarea:focus, select:focus {
 .page-legend {
     background-color: #bdbdbd;
     font-size: 25px;
-    color: #fff;
+    color: @white-color;
     padding: 20px;
 }
 
@@ -198,12 +194,11 @@ input:focus, textarea:focus, select:focus {
 }
 
 .bg-white {
-    background-color: #fff !important;
+    background-color: @white-color !important;
 }
 
 .buttons-area {
-    display: flex;
-    justify-content: space-between;
+    .flex-sb-element;
     margin-top: 30px;
 }
 
