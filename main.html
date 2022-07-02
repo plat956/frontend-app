@@ -7,6 +7,7 @@
     <link rel="stylesheet/less" href="less/main.less"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
     <script type="text/javascript" src="js/less@4.js" ></script>
+    <script type="text/javascript" src="js/common.js" ></script>
 </head>
 <body>
 <div class="wrapper">
@@ -19,6 +20,11 @@
                 <input type="text" placeholder="Search by item name">
                 <div class="search-dropdown">All categories
                     <span class="material-icons expand-search">expand_more</span>
+                    <div class="category-drop">
+                        <input type="text" name="t_search" />
+                        <span class="material-icons search-icon">search</span>
+                        <ul></ul>
+                    </div>
                 </div>
             </div>
             <div class="links">
@@ -36,48 +42,12 @@
     </div>
     <div class="categories">
         <div class="categories-wrap">
-            <div class="category">
-                <div class="picture"></div>
-                <div class="name">Category</div>
-            </div>
-            <div class="category">
-                <div class="picture"></div>
-                <div class="name">Category</div>
-            </div>
-            <div class="category">
-                <div class="picture"></div>
-                <div class="name">Category</div>
-            </div>
-            <div class="category">
-                <div class="picture"></div>
-                <div class="name">Category</div>
-            </div>
-            <div class="category">
-                <div class="picture"></div>
-                <div class="name">Category</div>
-            </div>
-            <div class="category">
-                <div class="picture"></div>
-                <div class="name">Category</div>
-            </div>
-            <div class="category">
-                <div class="picture"></div>
-                <div class="name">Category</div>
-            </div>
-            <div class="category">
-                <div class="picture"></div>
-                <div class="name">Category</div>
-            </div>
-            <div class="category">
-                <div class="picture"></div>
-                <div class="name">Category</div>
-            </div>
         </div>
     </div>
     <div class="content-container">
         <div class="item-container">
             <div class="item">
-                <div class="picture"></div>
+                <img src="images/coupon/horse.jpg" class="picture" />
                 <div class="footer">
                     <div class="descr">
                         <div>
@@ -101,7 +71,7 @@
             </div>
 
             <div class="item">
-                <div class="picture"></div>
+                <img src="images/coupon/horse.jpg" class="picture" />
                 <div class="footer">
                     <div class="descr">
                         <div>
@@ -125,7 +95,7 @@
             </div>
 
             <div class="item">
-                <div class="picture"></div>
+                <img src="images/coupon/horse.jpg" class="picture" />
                 <div class="footer">
                     <div class="descr">
                         <div>
@@ -149,7 +119,7 @@
             </div>
 
             <div class="item">
-                <div class="picture"></div>
+                <img src="images/coupon/horse.jpg" class="picture" />
                 <div class="footer">
                     <div class="descr">
                         <div>
@@ -173,7 +143,7 @@
             </div>
 
             <div class="item">
-                <div class="picture"></div>
+                <img src="images/coupon/horse.jpg" class="picture" />
                 <div class="footer">
                     <div class="descr">
                         <div>
@@ -197,7 +167,7 @@
             </div>
 
             <div class="item">
-                <div class="picture"></div>
+                <img src="images/coupon/horse.jpg" class="picture" />
                 <div class="footer">
                     <div class="descr">
                         <div>
@@ -221,7 +191,7 @@
             </div>
 
             <div class="item">
-                <div class="picture"></div>
+                <img src="images/coupon/horse.jpg" class="picture" />
                 <div class="footer">
                     <div class="descr">
                         <div>
@@ -245,295 +215,7 @@
             </div>
 
             <div class="item">
-                <div class="picture"></div>
-                <div class="footer">
-                    <div class="descr">
-                        <div>
-                            <div class="item-name">Coupon name</div>
-                            <div class="item-descr">Some brief description</div>
-                        </div>
-                        <div class="extra-info">
-                            <div>
-                                <span class="material-icons fav">favorite</span>
-                            </div>
-                            <div class="sm">Expires in 3 days</div>
-                        </div>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">$235</div>
-                        <div class="cart">
-                            <button class="button small">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="picture"></div>
-                <div class="footer">
-                    <div class="descr">
-                        <div>
-                            <div class="item-name">Coupon name</div>
-                            <div class="item-descr">Some brief description</div>
-                        </div>
-                        <div class="extra-info">
-                            <div>
-                                <span class="material-icons fav">favorite</span>
-                            </div>
-                            <div class="sm">Expires in 3 days</div>
-                        </div>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">$235</div>
-                        <div class="cart">
-                            <button class="button small">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="picture"></div>
-                <div class="footer">
-                    <div class="descr">
-                        <div>
-                            <div class="item-name">Coupon name</div>
-                            <div class="item-descr">Some brief description</div>
-                        </div>
-                        <div class="extra-info">
-                            <div>
-                                <span class="material-icons fav">favorite</span>
-                            </div>
-                            <div class="sm">Expires in 3 days</div>
-                        </div>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">$235</div>
-                        <div class="cart">
-                            <button class="button small">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="picture"></div>
-                <div class="footer">
-                    <div class="descr">
-                        <div>
-                            <div class="item-name">Coupon name</div>
-                            <div class="item-descr">Some brief description</div>
-                        </div>
-                        <div class="extra-info">
-                            <div>
-                                <span class="material-icons fav">favorite</span>
-                            </div>
-                            <div class="sm">Expires in 3 days</div>
-                        </div>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">$235</div>
-                        <div class="cart">
-                            <button class="button small">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="picture"></div>
-                <div class="footer">
-                    <div class="descr">
-                        <div>
-                            <div class="item-name">Coupon name</div>
-                            <div class="item-descr">Some brief description</div>
-                        </div>
-                        <div class="extra-info">
-                            <div>
-                                <span class="material-icons fav">favorite</span>
-                            </div>
-                            <div class="sm">Expires in 3 days</div>
-                        </div>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">$235</div>
-                        <div class="cart">
-                            <button class="button small">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="picture"></div>
-                <div class="footer">
-                    <div class="descr">
-                        <div>
-                            <div class="item-name">Coupon name</div>
-                            <div class="item-descr">Some brief description</div>
-                        </div>
-                        <div class="extra-info">
-                            <div>
-                                <span class="material-icons fav">favorite</span>
-                            </div>
-                            <div class="sm">Expires in 3 days</div>
-                        </div>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">$235</div>
-                        <div class="cart">
-                            <button class="button small">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="picture"></div>
-                <div class="footer">
-                    <div class="descr">
-                        <div>
-                            <div class="item-name">Coupon name</div>
-                            <div class="item-descr">Some brief description</div>
-                        </div>
-                        <div class="extra-info">
-                            <div>
-                                <span class="material-icons fav">favorite</span>
-                            </div>
-                            <div class="sm">Expires in 3 days</div>
-                        </div>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">$235</div>
-                        <div class="cart">
-                            <button class="button small">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="picture"></div>
-                <div class="footer">
-                    <div class="descr">
-                        <div>
-                            <div class="item-name">Coupon name</div>
-                            <div class="item-descr">Some brief description</div>
-                        </div>
-                        <div class="extra-info">
-                            <div>
-                                <span class="material-icons fav">favorite</span>
-                            </div>
-                            <div class="sm">Expires in 3 days</div>
-                        </div>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">$235</div>
-                        <div class="cart">
-                            <button class="button small">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="picture"></div>
-                <div class="footer">
-                    <div class="descr">
-                        <div>
-                            <div class="item-name">Coupon name</div>
-                            <div class="item-descr">Some brief description</div>
-                        </div>
-                        <div class="extra-info">
-                            <div>
-                                <span class="material-icons fav">favorite</span>
-                            </div>
-                            <div class="sm">Expires in 3 days</div>
-                        </div>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">$235</div>
-                        <div class="cart">
-                            <button class="button small">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="picture"></div>
-                <div class="footer">
-                    <div class="descr">
-                        <div>
-                            <div class="item-name">Coupon name</div>
-                            <div class="item-descr">Some brief description</div>
-                        </div>
-                        <div class="extra-info">
-                            <div>
-                                <span class="material-icons fav">favorite</span>
-                            </div>
-                            <div class="sm">Expires in 3 days</div>
-                        </div>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">$235</div>
-                        <div class="cart">
-                            <button class="button small">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="picture"></div>
-                <div class="footer">
-                    <div class="descr">
-                        <div>
-                            <div class="item-name">Coupon name</div>
-                            <div class="item-descr">Some brief description</div>
-                        </div>
-                        <div class="extra-info">
-                            <div>
-                                <span class="material-icons fav">favorite</span>
-                            </div>
-                            <div class="sm">Expires in 3 days</div>
-                        </div>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">$235</div>
-                        <div class="cart">
-                            <button class="button small">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="picture"></div>
-                <div class="footer">
-                    <div class="descr">
-                        <div>
-                            <div class="item-name">Coupon name</div>
-                            <div class="item-descr">Some brief description</div>
-                        </div>
-                        <div class="extra-info">
-                            <div>
-                                <span class="material-icons fav">favorite</span>
-                            </div>
-                            <div class="sm">Expires in 3 days</div>
-                        </div>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">$235</div>
-                        <div class="cart">
-                            <button class="button small">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="picture"></div>
+                <img src="images/coupon/horse.jpg" class="picture" />
                 <div class="footer">
                     <div class="descr">
                         <div>
@@ -559,6 +241,10 @@
     </div>
     <div class="footer-container">
     </div>
+    <span class="material-icons top-button" onclick="functions.toTop();">arrow_upward</span>
 </div>
+<script>
+    ui.render();
+</script>
 </body>
 </html>

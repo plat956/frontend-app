@@ -58,16 +58,65 @@ input:focus, textarea:focus, select:focus {
 
 .search input {
     border: 1px solid #bdbdbd;
+    border-radius: 5px 0px 0px 5px;
     padding: 0px 10px 0px 15px;
-    height: 37px;
-    width: 40%;
+    height: 40px;
+    width: 45%;
 }
 
 .search-dropdown {
+    position: relative;
     border: 1px solid #bdbdbd;
     border-left: none;
-    padding: 7px 5px 5px 10px;
+    padding: 9px 25px 5px 30px;
     cursor: pointer;
+    border-radius: 0px 5px 5px 0px;
+    height: 40px;
+}
+
+.category-drop {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    left: 0;
+    top: 0;
+    margin-top: 50px;
+    background: #fff;
+    border: 1px #bdbdbd solid;
+    border-radius: 5px;
+
+    ul {
+        list-style: none;
+        word-break: break-word;
+
+        li {
+            padding: 7px;
+        }
+
+        li:hover {
+            .default-hover;
+        }
+    }
+}
+
+input[name=t_search] {
+    width: 100%;
+    border: none;
+    border-radius: 5px 5px 0px 0px;
+}
+
+
+input[name=t_search]:focus {
+    .default-hover;
+}
+
+.search-icon {
+    position: absolute;
+    right: 0;
+    margin-top: 7px;
+    margin-right: 7px;
 }
 
 .material-icons.drop-logo {
@@ -79,6 +128,7 @@ input:focus, textarea:focus, select:focus {
 .material-icons.expand-search {
     vertical-align: bottom;
     font-size: 18px;
+    transition: transform .3s ease-in-out;
 }
 
 .logo {
@@ -137,6 +187,20 @@ input:focus, textarea:focus, select:focus {
 .nav-btn {
     margin-right: 15px;
     cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.default-hover {
+    background-color: #efeeee;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+}
+
+.login:hover, .signup:hover, .nav-btn:hover, .search input:hover, .search-dropdown:hover {
+    .default-hover;
 }
 
 .nav-btn .material-icons {
@@ -205,4 +269,28 @@ input:focus, textarea:focus, select:focus {
 .links a {
     text-decoration: none;
     color: #606060;
+}
+
+.login, .separator, .signup {
+    .flex-center-element;
+    align-items: center;
+    padding: 5px 15px 5px 15px;
+    border-radius: 5px;
+}
+
+.separator {
+    padding: 0;
+    cursor: default;
+}
+
+.top-button {
+    visibility: hidden;
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    padding: 15px;
+    background: #f2f2f2;
+    border: 1px #bdbdbd solid;
+    border-radius: 50%;
+    cursor: pointer;
 }
