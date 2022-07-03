@@ -77,18 +77,21 @@ const events = {
             searchButtonUl.insertAdjacentHTML('beforeend', searchCategoryLi);
         });
     },
-    scroll: () => {
+    scroll: (ev) => {
         const {
             scrollTop,
             scrollHeight,
             clientHeight
         } = document.documentElement;
 
-        const button = document.querySelector('.top-button');
-        if (scrollTop > 20) {
-            button.style.visibility = "visible";
-        } else {
-            button.style.visibility = "hidden";
+        ui.redrawScrollButton(scrollTop);
+
+        if(sessionStorage.preventScrollPosCounter === 'false') {
+            sessionStorage.scrollTop = scrollTop;
+        }
+
+        if(scrollTop == 0) {
+            sessionStorage.preventScrollPosCounter = false;
         }
 
         if (scrollTop + clientHeight >= scrollHeight - 5) {
@@ -120,7 +123,11 @@ const fn = {
         }, ms);
     },
     toTop: function () {
+        sessionStorage.preventScrollPosCounter = true;
         window.scrollTo({top: 0, behavior: 'smooth'});
+    },
+    restoreScroll: function () {
+        window.scrollTo({top: sessionStorage.scrollTop, behavior: 'smooth'});
     },
     formatParams: params => {
         return "?" + Object
@@ -151,7 +158,7 @@ const ui = {
     render: function () {
         this.renderCategories();
         this.renderCertificates();
-        window.addEventListener('scroll', () => events.scroll());
+        window.addEventListener('scroll', ev => events.scroll(ev));
     },
     renderCategories: () => {
         fn.ajax({
@@ -181,18 +188,18 @@ const ui = {
             },
             successCallback: resp => {
                 const data = JSON.parse(resp);
-                ui.drawCertificates(page, data.page.totalPages, data._embedded.certificates);
+                ui.drawCertificates(page, data.page.totalPages, data._embedded);
             },
             errorCallback: resp => {
                 alert('Something went wrong during fetching certificates data');
             }
         });
     },
-    drawCertificates: (page, totalPages, certificates) => {
+    drawCertificates: (page, totalPages, data) => {
         const itemArea = document.querySelector('.item-container');
 
         if(page < totalPages) {
-            certificates.forEach(c => {
+            data.certificates.forEach(c => {
                 const certificateBlock = templates.certificateBlock(c);
                 itemArea.insertAdjacentHTML('beforeend', certificateBlock);
             });
@@ -232,5 +239,17 @@ const ui = {
         });
         searchButton.addEventListener('mouseenter', ev => events.searchButtonHover(ev.target, true));
         searchButton.addEventListener('mouseleave', ev => events.searchButtonHover(ev.target, false));
+    },
+    redrawScrollButton: (scrollTop) => {
+        const button = document.querySelector('.top-button');
+        if (scrollTop > 0) {
+            button.style.visibility = "visible";
+            button.innerText = "arrow_upward";
+            button.setAttribute( "onClick", "fn.toTop();" );
+        } else {
+            button.style.visibility = "visible";
+            button.innerText = "arrow_downward";
+            button.setAttribute( "onClick", "fn.restoreScroll();" );
+        }
     }
 }
