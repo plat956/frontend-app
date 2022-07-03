@@ -28,7 +28,7 @@ const templates = {
                             </div>
                             <div class="extra-info">
                                 <div>
-                                    <span class="material-icons fav">favorite</span>
+                                    <span class="material-icons fav">favorite_border</span>
                                 </div>
                             </div>
                         </div>
@@ -42,7 +42,11 @@ const templates = {
                 </div>`;
     },
     searchCategoryLi: c => {
-        return `<li>${c.name}</li>`;
+        const cl = c.default !== undefined ? ' data-type="default"' : '';
+        return `<li${cl}>${c.name}</li>`;
+    },
+    errorMessage: msg => {
+        return `<div class="error-msg">${msg}</div>`;
     }
 }
 
@@ -78,12 +82,14 @@ const events = {
 
         searchButtonUl.innerHTML = "";
         if(newData.length == 0) {
-            newData.push({ name: "Ничего не найдено" });
+            newData.push({ name: "Nothing found", default: true });
         }
         newData.forEach(c => {
             const searchCategoryLi = templates.searchCategoryLi(c);
             searchButtonUl.insertAdjacentHTML('beforeend', searchCategoryLi);
         });
+
+        events.addDropdownListener();
     },
     scroll: () => {
         const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
@@ -92,6 +98,38 @@ const events = {
             const page = Number(sessionStorage.getItem("page")) + 1;
             ui.renderCertificates(page);
         }
+    },
+    chooseCategory: name => {
+        const categoryInput = document.querySelector('#category');
+        categoryInput.value = name;
+        ui.renderCertificates();
+    },
+    addDropdownListener: () => {
+        const dropdown = document.querySelectorAll('#category-dropdown li:not([data-type*=default])');
+        const button = document.querySelector('#selected-category');
+        const searchDropdown = document.querySelector('.category-drop');
+        const searchButton = document.querySelector('.search-dropdown');
+        dropdown.forEach(c => {
+            c.addEventListener("click", (ev) => {
+                const name = ev.target.innerText;
+                events.chooseCategory(name);
+                button.innerText = name;
+                searchDropdown.classList.remove("fadeInFast");
+                searchDropdown.style.visibility = "hidden";
+                searchButton.dispatchEvent(new Event('mouseleave'));
+            });
+        });
+    },
+    addCategoryListener: () => {
+        const rendered = document.querySelectorAll('.category');
+        const button = document.querySelector('#selected-category');
+        rendered.forEach(c => {
+            c.addEventListener("click", (ev) => {
+                const name = ev.target.innerText;
+                events.chooseCategory(name);
+                button.innerText = name;
+            });
+        });
     }
 }
 
@@ -151,6 +189,9 @@ const ui = {
         this.renderCertificates();
         window.addEventListener("scroll", fn.debounce(() => events.scroll(), 1600));
         window.addEventListener("scroll", ui.redrawScrollButton);
+
+        const searchInput = document.querySelector('#global_search');
+        searchInput.addEventListener("keyup", fn.debounce(() => ui.renderCertificates(), 1000));
     },
     renderCategories: () => {
         fn.ajax({
@@ -163,6 +204,8 @@ const ui = {
                 ui.drawCategories(categories);
                 ui.drawGlobalSearch(categories);
                 store.categories = categories;
+                events.addCategoryListener();
+                events.addDropdownListener();
             },
             errorCallback: resp => {
                 alert('Something went wrong during fetching tags data');
@@ -171,13 +214,17 @@ const ui = {
     },
     renderCertificates: (page = 0) => {
         sessionStorage.setItem("page", page);
+        const search = document.querySelector('#global_search').value;
+        const category = document.querySelector('#category').value;
 
         fn.ajax({
             url: cfg.remoteHost + "/certificates",
             method: "GET",
             params: {
                 sorts: '-createDate',
-                page: page
+                page: page,
+                search: search,
+                tags: category
             },
             successCallback: resp => {
                 const data = JSON.parse(resp);
@@ -191,7 +238,13 @@ const ui = {
     drawCertificates: (page, totalPages, data) => {
         const itemArea = document.querySelector('.item-container');
 
-        if(page < totalPages) {
+        if(page == 0) {
+            itemArea.innerHTML = "";
+        }
+
+        if(totalPages == 0) {
+            itemArea.innerHTML = templates.errorMessage("Nothing found for your query");
+        } else if(page < totalPages) {
             data.certificates.forEach(c => {
                 const certificateBlock = templates.certificateBlock(c);
                 itemArea.insertAdjacentHTML('beforeend', certificateBlock);

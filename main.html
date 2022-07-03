@@ -13,23 +13,25 @@
 <div class="wrapper">
     <div class="menu-container">
         <div class="menu">
-            <div class="logo">
+            <a href="" class="logo">
                 <span class="material-icons drop-logo">sentiment_very_satisfied</span> Certificates Store
-            </div>
+            </a>
             <div class="search">
-                <input type="text" placeholder="Search by item name">
-                <div class="search-dropdown">All categories
+                <input type="text" id="global_search" placeholder="Search by item name or description">
+                <input type="hidden" id="category" />
+                <div class="search-dropdown">
+                    <span id="selected-category">All categories</span>
                     <span class="material-icons expand-search">expand_more</span>
                     <div class="category-drop">
                         <input type="text" name="t_search" onkeyup="events.searchCategoriesKeyUp(event, this.value)" />
                         <span class="material-icons search-icon">search</span>
-                        <ul></ul>
+                        <ul id="category-dropdown"></ul>
                     </div>
                 </div>
             </div>
             <div class="links">
                 <div class="nav-btn">
-                    <span class="material-icons">favorite</span>
+                    <span class="material-icons">favorite_border</span>
                 </div>
                 <div class="nav-btn">
                     <span class="material-icons">shopping_cart</span>
