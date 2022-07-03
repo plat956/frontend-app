@@ -2,6 +2,10 @@ const cfg = {
     remoteHost: "http://localhost:8080"
 }
 
+const store = {
+    categories: {}
+}
+
 const templates = {
     categoryBlock: c => {
         return `<div class="category">
@@ -12,28 +16,30 @@ const templates = {
                 </div>`;
     },
     certificateBlock: c => {
-        return `<div class="item">
-                <img src="data:image/png;base64,${c.image}" class="picture">
-                <div class="footer">
-                    <div class="descr">
-                        <div>
-                            <div class="item-name">${c.name}</div>
-                            <div class="item-descr">${c.description}</div>
-                        </div>
-                        <div class="extra-info">
+        return `<div class="item new_item">
+                    <div class="item-frame">
+                        <img src="data:image/png;base64,${c.image}" class="picture">
+                    </div>
+                    <div class="footer">
+                        <div class="descr">
                             <div>
-                                <span class="material-icons fav">favorite</span>
+                                <div class="item-name">${c.name}</div>
+                                <div class="item-descr">${c.description}</div>
+                            </div>
+                            <div class="extra-info">
+                                <div>
+                                    <span class="material-icons fav">favorite</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price">
+                            <div class="price-left">$${c.price}</div>
+                            <div class="cart">
+                                <button class="button small">Add to Cart</button>
                             </div>
                         </div>
                     </div>
-                    <div class="price">
-                        <div class="price-left">$${c.price}</div>
-                        <div class="cart">
-                            <button class="button small">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
+                </div>`;
     },
     searchCategoryLi: c => {
         return `<li>${c.name}</li>`;
@@ -64,10 +70,12 @@ const events = {
         }, 50);
     },
     searchCategoriesKeyUp: (ev, text) => {
+        const searchButtonUl = document.querySelector('.search-dropdown ul');
+
         let newData = store.categories.filter(function (el) {
             return el.name.toLocaleLowerCase().includes(text.toLowerCase());
         });
-        const searchButtonUl = document.querySelector('.search-dropdown ul');
+
         searchButtonUl.innerHTML = "";
         if(newData.length == 0) {
             newData.push({ name: "Ничего не найдено" });
@@ -77,22 +85,8 @@ const events = {
             searchButtonUl.insertAdjacentHTML('beforeend', searchCategoryLi);
         });
     },
-    scroll: (ev) => {
-        const {
-            scrollTop,
-            scrollHeight,
-            clientHeight
-        } = document.documentElement;
-
-        ui.redrawScrollButton(scrollTop);
-
-        if(sessionStorage.preventScrollPosCounter === 'false') {
-            sessionStorage.scrollTop = scrollTop;
-        }
-
-        if(scrollTop == 0) {
-            sessionStorage.preventScrollPosCounter = false;
-        }
+    scroll: () => {
+        const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
         if (scrollTop + clientHeight >= scrollHeight - 5) {
             const page = Number(sessionStorage.getItem("page")) + 1;
@@ -112,18 +106,8 @@ const fn = {
             opacity += opacity * 0.15;
         }, ms);
     },
-    fadeOut: (el, ms) => {
-        let opacity = 1;
-        let timer = setInterval(function() {
-            if(opacity <= 0.1) {
-                clearInterval(timer);
-            }
-            el.style.opacity = opacity;
-            opacity -= opacity * 0.15;
-        }, ms);
-    },
     toTop: function () {
-        sessionStorage.preventScrollPosCounter = true;
+        sessionStorage.scrollTop = document.documentElement.scrollTop;
         window.scrollTo({top: 0, behavior: 'smooth'});
     },
     restoreScroll: function () {
@@ -151,6 +135,13 @@ const fn = {
             }
         });
         request.send();
+    },
+    debounce: function (func, timeout = 300){
+        let timer;
+        return (...args) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => { func.apply(this, args); }, timeout);
+        };
     }
 }
 
@@ -158,7 +149,8 @@ const ui = {
     render: function () {
         this.renderCategories();
         this.renderCertificates();
-        window.addEventListener('scroll', ev => events.scroll(ev));
+        window.addEventListener("scroll", fn.debounce(() => events.scroll(), 1600));
+        window.addEventListener("scroll", ui.redrawScrollButton);
     },
     renderCategories: () => {
         fn.ajax({
@@ -170,6 +162,7 @@ const ui = {
                 const categories = data._embedded.tags;
                 ui.drawCategories(categories);
                 ui.drawGlobalSearch(categories);
+                store.categories = categories;
             },
             errorCallback: resp => {
                 alert('Something went wrong during fetching tags data');
@@ -203,6 +196,22 @@ const ui = {
                 const certificateBlock = templates.certificateBlock(c);
                 itemArea.insertAdjacentHTML('beforeend', certificateBlock);
             });
+
+            const itemBlock = itemArea.querySelectorAll('.new_item');
+            itemBlock.forEach(el => {
+                el.classList.remove("new_item");
+            });
+
+            let drawn = 0;
+            let fadeInterval = setInterval(function() {
+                if(drawn == itemBlock.length - 1) {
+                    clearInterval(fadeInterval);
+                }
+                const el = itemBlock[drawn];
+                fn.fadeIn(el, 15);
+                drawn++;
+            }, 250);
+
         } else {
             sessionStorage.setItem("page", totalPages - 1);
         }
@@ -240,9 +249,9 @@ const ui = {
         searchButton.addEventListener('mouseenter', ev => events.searchButtonHover(ev.target, true));
         searchButton.addEventListener('mouseleave', ev => events.searchButtonHover(ev.target, false));
     },
-    redrawScrollButton: (scrollTop) => {
+    redrawScrollButton: () => {
         const button = document.querySelector('.top-button');
-        if (scrollTop > 0) {
+        if (document.documentElement.scrollTop > 0) {
             button.style.visibility = "visible";
             button.innerText = "arrow_upward";
             button.setAttribute( "onClick", "fn.toTop();" );
