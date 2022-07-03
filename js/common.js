@@ -2,8 +2,9 @@ const cfg = {
     remoteHost: "http://localhost:8080"
 }
 
-const store = {
-    categories: {}
+const storage = {
+    categories: {},
+    totalPages: null
 }
 
 const templates = {
@@ -76,7 +77,7 @@ const events = {
     searchCategoriesKeyUp: (ev, text) => {
         const searchButtonUl = document.querySelector('.search-dropdown ul');
 
-        let newData = store.categories.filter(function (el) {
+        let newData = storage.categories.filter(function (el) {
             return el.name.toLocaleLowerCase().includes(text.toLowerCase());
         });
 
@@ -187,6 +188,7 @@ const ui = {
     render: function () {
         this.renderCategories();
         this.renderCertificates();
+        window.addEventListener("scroll", ui.drawPageLoader);
         window.addEventListener("scroll", fn.debounce(() => events.scroll(), 1600));
         window.addEventListener("scroll", ui.redrawScrollButton);
 
@@ -203,7 +205,7 @@ const ui = {
                 const categories = data._embedded.tags;
                 ui.drawCategories(categories);
                 ui.drawGlobalSearch(categories);
-                store.categories = categories;
+                storage.categories = categories;
                 events.addCategoryListener();
                 events.addDropdownListener();
             },
@@ -228,23 +230,25 @@ const ui = {
             },
             successCallback: resp => {
                 const data = JSON.parse(resp);
-                ui.drawCertificates(page, data.page.totalPages, data._embedded);
+                storage.totalPages = data.page.totalPages;
+                ui.drawCertificates(page, data._embedded);
+                document.querySelector('.page-loader').style.display = 'none';
             },
             errorCallback: resp => {
                 alert('Something went wrong during fetching certificates data');
             }
         });
     },
-    drawCertificates: (page, totalPages, data) => {
+    drawCertificates: (page, data) => {
         const itemArea = document.querySelector('.item-container');
 
         if(page == 0) {
             itemArea.innerHTML = "";
         }
 
-        if(totalPages == 0) {
+        if(storage.totalPages == 0) {
             itemArea.innerHTML = templates.errorMessage("Nothing found for your query");
-        } else if(page < totalPages) {
+        } else if(page < storage.totalPages) {
             data.certificates.forEach(c => {
                 const certificateBlock = templates.certificateBlock(c);
                 itemArea.insertAdjacentHTML('beforeend', certificateBlock);
@@ -266,7 +270,7 @@ const ui = {
             }, 250);
 
         } else {
-            sessionStorage.setItem("page", totalPages - 1);
+            sessionStorage.setItem("page", storage.totalPages - 1);
         }
     },
     drawCategories: categories => {
@@ -301,6 +305,14 @@ const ui = {
         });
         searchButton.addEventListener('mouseenter', ev => events.searchButtonHover(ev.target, true));
         searchButton.addEventListener('mouseleave', ev => events.searchButtonHover(ev.target, false));
+    },
+    drawPageLoader: () => {
+        const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+        const page = Number(sessionStorage.getItem("page"));
+
+        if (scrollTop + clientHeight >= scrollHeight - 5 && (storage.totalPages == null || page < storage.totalPages - 1)) {
+            document.querySelector('.page-loader').style.display = 'block';
+        }
     },
     redrawScrollButton: () => {
         const button = document.querySelector('.top-button');
