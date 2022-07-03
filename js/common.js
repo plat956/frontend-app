@@ -1,33 +1,42 @@
-let categoriesData = [
-    {
-        title: "Category 1ddddddddddddddddddddddd",
-        image: "cake.jpg"
-    },
-    {
-        title: "Category 2",
-        image: "cake.jpg"
-    },
-    {
-        title: "Category 3",
-        image: "cake.jpg"
-    },
-    {
-        title: "Category 4",
-        image: "cake.jpg"
-    }
-];
+const cfg = {
+    remoteHost: "http://localhost:8080"
+}
 
 const templates = {
     categoryBlock: c => {
         return `<div class="category">
-                    <img src="images/category/${c.image}" class="picture" alt="${c.title}" />
+                    <img src="data:image/png;base64,${c.image}" class="picture" alt="${c.name}" />
                     <div class="title">
-                        <span>${c.title}</span>
+                        <span>${c.name}</span>
                     </div>
                 </div>`;
     },
+    certificateBlock: c => {
+        return `<div class="item">
+                <img src="data:image/png;base64,${c.image}" class="picture">
+                <div class="footer">
+                    <div class="descr">
+                        <div>
+                            <div class="item-name">${c.name}</div>
+                            <div class="item-descr">${c.description}</div>
+                        </div>
+                        <div class="extra-info">
+                            <div>
+                                <span class="material-icons fav">favorite</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="price">
+                        <div class="price-left">$${c.price}</div>
+                        <div class="cart">
+                            <button class="button small">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+    },
     searchCategoryLi: c => {
-        return `<li>${c.title}</li>`;
+        return `<li>${c.name}</li>`;
     }
 }
 
@@ -53,10 +62,43 @@ const events = {
                 searchInput.blur();
             }
         }, 50);
+    },
+    searchCategoriesKeyUp: (ev, text) => {
+        let newData = store.categories.filter(function (el) {
+            return el.name.toLocaleLowerCase().includes(text.toLowerCase());
+        });
+        const searchButtonUl = document.querySelector('.search-dropdown ul');
+        searchButtonUl.innerHTML = "";
+        if(newData.length == 0) {
+            newData.push({ name: "Ничего не найдено" });
+        }
+        newData.forEach(c => {
+            const searchCategoryLi = templates.searchCategoryLi(c);
+            searchButtonUl.insertAdjacentHTML('beforeend', searchCategoryLi);
+        });
+    },
+    scroll: () => {
+        const {
+            scrollTop,
+            scrollHeight,
+            clientHeight
+        } = document.documentElement;
+
+        const button = document.querySelector('.top-button');
+        if (scrollTop > 20) {
+            button.style.visibility = "visible";
+        } else {
+            button.style.visibility = "hidden";
+        }
+
+        if (scrollTop + clientHeight >= scrollHeight - 5) {
+            const page = Number(sessionStorage.getItem("page")) + 1;
+            ui.renderCertificates(page);
+        }
     }
 }
 
-const functions = {
+const fn = {
     fadeIn: (el, ms) => {
         let opacity = 0.01;
         let timer = setInterval(function() {
@@ -80,27 +122,88 @@ const functions = {
     toTop: function () {
         window.scrollTo({top: 0, behavior: 'smooth'});
     },
-    scrollFn: () => {
-        console.log(document.documentElement.scrollTop);
-        const button = document.querySelector('.top-button');
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            button.style.visibility = "visible";
-        } else {
-            button.style.visibility = "hidden";
-        }
+    formatParams: params => {
+        return "?" + Object
+            .keys(params)
+            .map(function(key){
+                return key+"="+encodeURIComponent(params[key])
+            })
+            .join("&")
+    },
+    ajax: function (data) {
+        const request = new XMLHttpRequest();
+        request.open(data.method, data.url + this.formatParams(data.params));
+
+        request.addEventListener("readystatechange", () => {
+            if (request.readyState === 4) {
+                if (request.status === 200) {
+                    data.successCallback(request.response);
+                } else {
+                    data.errorCallback(request.response);
+                }
+            }
+        });
+        request.send();
     }
 }
 
 const ui = {
     render: function () {
-        window.onscroll = functions.scrollFn;
         this.renderCategories();
-        this.renderGlobalSearchDropdown();
+        this.renderCertificates();
+        window.addEventListener('scroll', () => events.scroll());
     },
     renderCategories: () => {
+        fn.ajax({
+            url: cfg.remoteHost + "/tags",
+            method: "GET",
+            params: {},
+            successCallback: resp => {
+                const data = JSON.parse(resp);
+                const categories = data._embedded.tags;
+                ui.drawCategories(categories);
+                ui.drawGlobalSearch(categories);
+            },
+            errorCallback: resp => {
+                alert('Something went wrong during fetching tags data');
+            }
+        });
+    },
+    renderCertificates: (page = 0) => {
+        sessionStorage.setItem("page", page);
+
+        fn.ajax({
+            url: cfg.remoteHost + "/certificates",
+            method: "GET",
+            params: {
+                sorts: '-createDate',
+                page: page
+            },
+            successCallback: resp => {
+                const data = JSON.parse(resp);
+                ui.drawCertificates(page, data.page.totalPages, data._embedded.certificates);
+            },
+            errorCallback: resp => {
+                alert('Something went wrong during fetching certificates data');
+            }
+        });
+    },
+    drawCertificates: (page, totalPages, certificates) => {
+        const itemArea = document.querySelector('.item-container');
+
+        if(page < totalPages) {
+            certificates.forEach(c => {
+                const certificateBlock = templates.certificateBlock(c);
+                itemArea.insertAdjacentHTML('beforeend', certificateBlock);
+            });
+        } else {
+            sessionStorage.setItem("page", totalPages - 1);
+        }
+    },
+    drawCategories: categories => {
         const categoriesArea = document.querySelector('.categories-wrap');
 
-        categoriesData.forEach(c => {
+        categories.forEach(c => {
             const categoryBlock = templates.categoryBlock(c);
             categoriesArea.insertAdjacentHTML('beforeend', categoryBlock);
 
@@ -109,21 +212,21 @@ const ui = {
             category.addEventListener("mouseleave", ev => events.categoryHover(ev.target, false));
         });
 
-        const categories = categoriesArea.querySelectorAll('.category');
-
+        const categoriesBlock = categoriesArea.querySelectorAll('.category');
         let drawn = 0;
         let fadeInterval = setInterval(function() {
-            if(drawn == categories.length - 1) {
+            if(drawn == categoriesBlock.length - 1) {
                 clearInterval(fadeInterval);
             }
-            functions.fadeIn(categories[drawn], 20);
+            fn.fadeIn(categoriesBlock[drawn], 20);
             drawn++;
         }, 300);
     },
-    renderGlobalSearchDropdown: () => {
+    drawGlobalSearch: categories => {
         const searchButton = document.querySelector('.search-dropdown');
         const searchButtonUl = searchButton.querySelector('ul');
-        categoriesData.forEach(c => {
+
+        categories.forEach(c => {
             const searchCategoryLi = templates.searchCategoryLi(c);
             searchButtonUl.insertAdjacentHTML('beforeend', searchCategoryLi);
         });

@@ -14,14 +14,14 @@
     <div class="menu-container">
         <div class="menu">
             <div class="logo">
-                <span class="material-icons drop-logo">menu</span> Logo
+                <span class="material-icons drop-logo">sentiment_very_satisfied</span> Certificates Store
             </div>
             <div class="search">
                 <input type="text" placeholder="Search by item name">
                 <div class="search-dropdown">All categories
                     <span class="material-icons expand-search">expand_more</span>
                     <div class="category-drop">
-                        <input type="text" name="t_search" />
+                        <input type="text" name="t_search" onkeyup="events.searchCategoriesKeyUp(event, this.value)" />
                         <span class="material-icons search-icon">search</span>
                         <ul></ul>
                     </div>
@@ -45,205 +45,13 @@
         </div>
     </div>
     <div class="content-container">
-        <div class="item-container">
-            <div class="item">
-                <img src="images/coupon/horse.jpg" class="picture" />
-                <div class="footer">
-                    <div class="descr">
-                        <div>
-                            <div class="item-name">Coupon name</div>
-                            <div class="item-descr">Some brief description</div>
-                        </div>
-                        <div class="extra-info">
-                            <div>
-                                <span class="material-icons fav">favorite</span>
-                            </div>
-                            <div class="sm">Expires in 3 days</div>
-                        </div>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">$235</div>
-                        <div class="cart">
-                            <button class="button small">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <img src="images/coupon/horse.jpg" class="picture" />
-                <div class="footer">
-                    <div class="descr">
-                        <div>
-                            <div class="item-name">Coupon name</div>
-                            <div class="item-descr">Some brief description</div>
-                        </div>
-                        <div class="extra-info">
-                            <div>
-                                <span class="material-icons fav">favorite</span>
-                            </div>
-                            <div class="sm">Expires in 3 days</div>
-                        </div>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">$235</div>
-                        <div class="cart">
-                            <button class="button small">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <img src="images/coupon/horse.jpg" class="picture" />
-                <div class="footer">
-                    <div class="descr">
-                        <div>
-                            <div class="item-name">Coupon name</div>
-                            <div class="item-descr">Some brief description</div>
-                        </div>
-                        <div class="extra-info">
-                            <div>
-                                <span class="material-icons fav">favorite</span>
-                            </div>
-                            <div class="sm">Expires in 3 days</div>
-                        </div>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">$235</div>
-                        <div class="cart">
-                            <button class="button small">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <img src="images/coupon/horse.jpg" class="picture" />
-                <div class="footer">
-                    <div class="descr">
-                        <div>
-                            <div class="item-name">Coupon name</div>
-                            <div class="item-descr">Some brief description</div>
-                        </div>
-                        <div class="extra-info">
-                            <div>
-                                <span class="material-icons fav">favorite</span>
-                            </div>
-                            <div class="sm">Expires in 3 days</div>
-                        </div>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">$235</div>
-                        <div class="cart">
-                            <button class="button small">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <img src="images/coupon/horse.jpg" class="picture" />
-                <div class="footer">
-                    <div class="descr">
-                        <div>
-                            <div class="item-name">Coupon name</div>
-                            <div class="item-descr">Some brief description</div>
-                        </div>
-                        <div class="extra-info">
-                            <div>
-                                <span class="material-icons fav">favorite</span>
-                            </div>
-                            <div class="sm">Expires in 3 days</div>
-                        </div>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">$235</div>
-                        <div class="cart">
-                            <button class="button small">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <img src="images/coupon/horse.jpg" class="picture" />
-                <div class="footer">
-                    <div class="descr">
-                        <div>
-                            <div class="item-name">Coupon name</div>
-                            <div class="item-descr">Some brief description</div>
-                        </div>
-                        <div class="extra-info">
-                            <div>
-                                <span class="material-icons fav">favorite</span>
-                            </div>
-                            <div class="sm">Expires in 3 days</div>
-                        </div>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">$235</div>
-                        <div class="cart">
-                            <button class="button small">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <img src="images/coupon/horse.jpg" class="picture" />
-                <div class="footer">
-                    <div class="descr">
-                        <div>
-                            <div class="item-name">Coupon name</div>
-                            <div class="item-descr">Some brief description</div>
-                        </div>
-                        <div class="extra-info">
-                            <div>
-                                <span class="material-icons fav">favorite</span>
-                            </div>
-                            <div class="sm">Expires in 3 days</div>
-                        </div>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">$235</div>
-                        <div class="cart">
-                            <button class="button small">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <img src="images/coupon/horse.jpg" class="picture" />
-                <div class="footer">
-                    <div class="descr">
-                        <div>
-                            <div class="item-name">Coupon name</div>
-                            <div class="item-descr">Some brief description</div>
-                        </div>
-                        <div class="extra-info">
-                            <div>
-                                <span class="material-icons fav">favorite</span>
-                            </div>
-                            <div class="sm">Expires in 3 days</div>
-                        </div>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">$235</div>
-                        <div class="cart">
-                            <button class="button small">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="item-container"></div>
     </div>
     <div class="footer-container">
     </div>
-    <span class="material-icons top-button" onclick="functions.toTop();">arrow_upward</span>
+    <span class="material-icons top-button" onclick="fn.toTop();">arrow_upward</span>
 </div>
-<script>
+<script type="text/javascript">
     ui.render();
 </script>
 </body>
