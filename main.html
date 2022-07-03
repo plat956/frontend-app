@@ -7,7 +7,6 @@
     <link rel="stylesheet/less" href="less/main.less"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
     <script type="text/javascript" src="js/less@4.js" ></script>
-    <script type="text/javascript" src="js/common.js" ></script>
 </head>
 <body>
 <div class="wrapper">
@@ -56,7 +55,12 @@
     </div>
     <span class="material-icons top-button" onclick="fn.toTop();">arrow_upward</span>
 </div>
-<script type="text/javascript">
+<script type="module">
+    import { ui } from './js/modules/ui.js';
+    import { fn } from './js/modules/fn.js';
+    import { events } from './js/modules/events.js';
+    window.fn = fn;
+    window.events = events;
     ui.render();
 </script>
 </body>
